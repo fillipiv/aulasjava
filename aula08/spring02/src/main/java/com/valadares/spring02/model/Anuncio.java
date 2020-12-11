@@ -9,8 +9,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import lombok.Getter;
+import lombok.Setter;
+
 @Entity
 @Table(name = "anuncio")
+@Getter @Setter
 public class Anuncio {
 
     @Id
@@ -26,30 +32,8 @@ public class Anuncio {
 
     @ManyToOne
     @JoinColumn(name = "id_user")
+    @JsonIgnoreProperties("anuncios") // para cada user, não preencha o anuncio - se não, vira loop
     private User user;
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-
-    public double getValor() {
-        return valor;
-    }
-
-    public void setValor(double valor) {
-        this.valor = valor;
-    }
-
+    
 }
